@@ -18,12 +18,14 @@ export function spawnBox(scene, pos, color = 0xff6633, size = 0.9, opacity = 1) 
   return mesh;
 }
 
+// Esto es para cambiar la opacidad de las cajas dependiendo del signo de los valores
 export function setOpacityBySign(mesh, rx, ry, rz) {
   const neg = (rx < 0) || (ry < 0) || (rz < 0);
   mesh.material.transparent = true;
   mesh.material.opacity = neg ? 0.5 : 1.0;
 }
 
+// Esto es para limpiar las cajas que ya no se necesitan
 export function clearPickables(scene, pickables) {
   while (pickables.length) {
     const m = pickables.pop();
@@ -79,6 +81,7 @@ export function colorByIndex(i, n) {
 const FLIP_Z_ROWS = true;
 const FLIP_Z_COLS = true;
 
+// Esta función construye las cajas de la matriz Z a partir de los anclajes y los valores Z
 export function buildBoxesFromZ(scene, zAnchorsOrdered, Z, pickables, tmpV, shelfZ) {
   clearPickables(scene, pickables);
 

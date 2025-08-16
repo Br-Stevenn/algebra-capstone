@@ -135,16 +135,21 @@ document.getElementById('clearResults').onclick = () => {
 };
 
 
-// 
+// Esta lee las posiciones iniciales de la matriz Z
+// y las transforma a un array 3x3
+// Luego muestra el resultado en la caja de texto
 let lastAfter = null;
 document.getElementById('applyMat').onclick = async () => {
   try {
+    // Leemos la matriz Z y la transformamos a un array 3x3
     const Z = parseMatrixZ(document.getElementById('matZ').value);
     buildBoxesFromZ(scene, zAnchors, Z, pickables, tmpV, shelfZ);
     colorizeCurrent();
 
+    // Leemos la matriz de transformación
     const M = parseMatrix(document.getElementById('mat33').value);
 
+    // Manejamos las cordenadas locales de las cajas
     const beforeLocal = pickables.map(b => {
       const p = b.userData.zLocal;
       return [p.x, p.y, p.z];
@@ -154,9 +159,11 @@ document.getElementById('applyMat').onclick = async () => {
 
     lastAfter = afterLocal;
 
+    // Aplicamos la transformación a las cajas
     const colors = pickables.map(b => `#${b.material.color.getHexString()}`);
     renderResults(Z, beforeLocal, afterLocal, colors);
 
+    // Esto es pata generar la animación de movimiento de las cajas
     const lift = 1;
     for (let i = 0; i < pickables.length; i++) {
       const box = pickables[i];
@@ -170,6 +177,7 @@ document.getElementById('applyMat').onclick = async () => {
       await moveBoxAlongPath(box, [from, mid1, mid2, toWorld], 0.9);
     }
 
+    // Alineamos las cajas a la rotación de shelfX
     const qX = new THREE.Quaternion(); shelfX.getWorldQuaternion(qX);
     pickables.forEach(b => b.setRotationFromQuaternion(qX));
 
@@ -178,6 +186,8 @@ document.getElementById('applyMat').onclick = async () => {
   }
 };
 
+
+// Esto es para comparar la matriz resultado con la última matriz aplicada
 document.getElementById('compareBtn').onclick = () => {
   const out = document.getElementById('compareMsg');
   try {

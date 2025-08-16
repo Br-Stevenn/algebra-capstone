@@ -85,7 +85,6 @@ export function comparePoints(expected, actual, tol = 1e-2) {
   return mismatches.length ? { ok: false, mismatches } : { ok: true, message: `¡Coinciden! (tol=${tol})` };
 }
 
-
 export function parseMatrixZ(str) {
   const s = (str || '').trim();
   let Z;
@@ -123,6 +122,7 @@ export function parseMatrixZ(str) {
   return Z;
 }
 
+// Multiplica una matriz 3x3 por un vector 3D
 export function mulMatVec3(M, v) {
   return [
     M[0][0] * v[0] + M[0][1] * v[1] + M[0][2] * v[2],

@@ -20,6 +20,7 @@ import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
 // https://threejs.org/docs/#api/en/math/Matrix4
 
 
+// Esto se encarga de crear la estantería y las cajas
 export function createShelves(scene, { unit = 1.2, shelfY = 0.6 } = {}) {
   const snapTargets = [];
   const shelfZ = new THREE.Group();
