@@ -21,13 +21,11 @@ import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
 
 
 export function createShelves(scene, { unit = 1.2, shelfY = 0.6 } = {}) {
-  const snapTargets = [];              // anclas Object3D (para snap)
-  const shelfZ = new THREE.Group();    // Estantería en +Z (plano XY)
-  const shelfX = new THREE.Group();    // Estantería en +X (plano YZ)
+  const snapTargets = [];
+  const shelfZ = new THREE.Group();
+  const shelfX = new THREE.Group();
   scene.add(shelfZ, shelfX);
 
-  // ==== POSICIONES DE LOS GRUPOS ====
-  // Configurar la psoicion de la estantería Z
   shelfZ.position.set(-0.8, 0.8, 1.1);
   shelfZ.rotation.y = Math.PI / 2;
 
@@ -51,11 +49,11 @@ export function createShelves(scene, { unit = 1.2, shelfY = 0.6 } = {}) {
       for (let j = 0; j < size; j++) {
         let cx, cy, cz;
         if (vertical) {
-          if (axis === 'z') { // Z fijo: columnas en X, filas en Y
+          if (axis === 'z') {
             cx = origin.x + (j - half) * unit;
             cy = origin.y + (i - half) * unit;
             cz = origin.z;
-          } else {            // X fijo: columnas en Z, filas en Y  ← (ESTANTERÍA X)
+          } else {
             cx = origin.x;
             cy = origin.y + (i - half) * unit;
             cz = origin.z + (j - half) * unit;
@@ -113,7 +111,8 @@ export function createShelves(scene, { unit = 1.2, shelfY = 0.6 } = {}) {
 
   return {
     shelfZ, shelfX,
-    zAnchors, xAnchors,
+    zAnchors,
+    get xAnchors() { return xAnchors; },
     buildXShelf,
     snapTargets
   };

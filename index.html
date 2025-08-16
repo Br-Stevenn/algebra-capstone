@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Capstone Estanterías + Gancho (sin Orbit)</title>
+  <title>Estanterías</title>
   <style>
     * {
       box-sizing: border-box
@@ -80,55 +80,37 @@
 
 <body>
   <div class="ui">
-    <div class="row" style="justify-content:space-between; align-items:center">
+    <div class="row" style="justify-content:space-between;align-items:center">
       <div class="pill">R³→R³</div>
-      <select id="shelfXMode">
-        <option value="3x3">Estantería X: 3x3</option>
-        <option value="1x1">Estantería X: 1x1 (agujero centrado)</option>
-      </select>
       <button id="resetBtn">Reset</button>
     </div>
 
-    <label>Matriz 3x3 (R³→R³)</label>
-    <textarea id="mat33">[[1,0,0],[0,1,0],[0,0,1]]</textarea>
+    <label>Matriz Z (3x3 de ocupación)</label>
+    <textarea id="matZ">[[1,1,1],[1,0,1],[-1,1,1]]</textarea>
+    <!--
+    <button id="loadZ">Cargar matriz Z</button>
 
-    <label>Vector 3x1 (R³→R¹)</label>
-    <div class="row">
-      <input id="vec31" value="[1,0,0]" style="flex:1" />
-      <button id="applyMat">Aplicar</button>
-    </div>
-    <div class="hint">• R³→R³ transforma posiciones • R³→R¹ proyecta a escalar</div>
+    <label>Matriz 3x3 (R³→R³)</label>
+    -->
+    <textarea id="mat33" style="display:none;">[[0,0,1],[0,1,0],[-1,0,0]]</textarea>
+    
+    <button id="applyMat">Aplicar transformación</button>
+
 
     <label>Matriz resultado esperada (Nx3)</label>
-    <textarea id="matResult" placeholder="Ej:
-[-0.8,0.2,2.3]
-[-0.8,0.2,1.1]
-..."></textarea>
+    <textarea id="matResult" placeholder="Ej: [
+      [-0.8,0.2,2.3]
+      [-0.8,0.2,1.1]
+      ...
+    ]
+    "></textarea>
     <div class="row">
       <button id="compareBtn">Comparar</button>
       <span class="hint" id="compareMsg"></span>
     </div>
 
-
-    <br />
-    <h2>Garra</h2>
-    <div class="row">
-      <button id="toggleClaw">Abrir/Cerrar</button>
-      <button id="pick">Pick</button>
-      <button id="place">Place</button>
-      <button id="snap">Snap</button>
-    </div>
-    <!--
-    <div class="hint">Rotar estanterías: Z+ → (1/2) • X+ → (3/4)</div>\
-    -->
     <div class="hint">
-      Mover garra: WASD/QE
-    </div>
-    <div class="hint">
-      Mover bolita: flechas
-    </div>
-    <div class="hint">
-      Mover cámara:
+      <strong>Mover cámara:</strong>
       <div class="hint">
         Rotar en Y (Izquiera a derecha): J
       </div>
@@ -150,17 +132,16 @@
     </div>
   </div>
 
-  <div class="ui" id="resultsPanel" style="right:12px; left:auto; width:420px">
+  <div class="ui" id="resultsPanel" style="right:12px;left:auto;width:420px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem">
       <strong>Resultados</strong>
       <button id="clearResults">Limpiar</button>
     </div>
-    <div class="hint">Matriz y vector ingresados</div>
+    <div class="hint">Matriz ingresada</div>
     <pre id="mInfo" style="white-space:pre-wrap"></pre>
-    <div class="hint">Posiciones de cajas (antes → después) y proyección v·p</div>
-    <div id="posTables" style="max-height:42vh; overflow:auto; font-size:.9rem"></div>
+    <div class="hint">Posiciones de cajas (antes → después)</div>
+    <div id="posTables" style="max-height:42vh;overflow:auto;font-size:.9rem"></div>
   </div>
-
 
   <script src="https://unpkg.com/mathjs@11.11.0/lib/browser/math.js"></script>
   <script type="module" src="./main.js"></script>
